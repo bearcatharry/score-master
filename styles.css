@@ -1,0 +1,16 @@
+
+.fav-team {
+    padding: 0 !important;
+    background-color: gray;
+}
+
+.team {
+    padding: 0;
+    width: 200%;
+
+}
+
+#all-games {
+    height: 100%;
+    overflow: scroll;
+}
