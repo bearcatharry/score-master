@@ -3,10 +3,10 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-// import Team from "./Team";
-
+import Team from "./Team";
+import Dates from "./Date"
 //
 //  COMPONENT
 //––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -27,6 +27,7 @@ class Game extends Component {
     // Game ID.
     const { id: gameId } = game;
 
+    // for now just implementing NBA league
     let sport = "nba";
 
     let timeScore;
@@ -43,34 +44,27 @@ class Game extends Component {
     const awayScore = parseInt(away.score, 10);
     const homeScore = parseInt(home.score, 10);
     let winner = "";
-
+    let game__status = ""
     // Get today's date.
     const today = new Date();
 
     // Get the current month.
     const currentMonth = today.getMonth();
 
-    if sport === "nba" { 
+    if (sport === "nba") { 
     // If it's July... (note that January is 0)
         if (currentMonth === 6) {
           sport = "nba-summer-league";
-
           // If it's any other month.
         } else {
           sport = "nba";
         }
-
-
-
     }
     
 
     // If game is yet to start.
     if (status === "pre") {
-      url = "http://www.espn.com/" + sport + "/game?gameId=" + gameId;
-
       winner = "";
-
       gameStatusClass = "game--pre";
 
       // Use EST start time from API.
@@ -85,20 +79,13 @@ class Game extends Component {
 
       // If game is live.
     } else if (status === "in") {
-      url = "http://www.espn.com/" + sport + "/boxscore?gameId=" + gameId;
-
       winner = "";
-
       gameStatusClass = "game--live";
-
       timeScore = game.status.type.shortDetail;
 
       // If game is over.
     } else if (status === "post") {
-      url = "http://www.espn.com/" + sport + "/boxscore?gameId=" + gameId;
-
       gameStatusClass = "game--post";
-
       timeScore = game.status.type.shortDetail;
 
       // If the home team is the winner.
@@ -113,18 +100,13 @@ class Game extends Component {
       }
     }
 
-    // If it's July... (note that January is 0)
-    if (currentMonth === 6) {
-      // Add Summer League URL param to end of URL.
-      url += "&league=nba-summer-las-vegas";
-    }
-
     return (
-      <a href={url} className={`game__link ${gameStatusClass}`} target="_blank">
-        <span className="game__status">{timeScore}</span>
-        <Team data={away} homeOrAway="away" winner={winner} status={status} />
-        <Team data={home} homeOrAway="home" winner={winner} status={status} />
-      </a>
+      <React.fragment>{Dates.render()}
+      <div class="row bg-light">
+          <Team data={away} homeOrAway="away" winner={winner} status={status} />
+          <Team data={home} homeOrAway="home" winner={winner} status={status} />
+      </div>
+      </React.fragment>
     );
   }
 
@@ -136,7 +118,8 @@ class Game extends Component {
     // Destructure props.
     const { game } = this.props;
 
-    return <div className="game">{this.renderGame(game)}</div>;
+    return <div className="game col-12">{this.renderGame(game)}</div>;
+
   }
 }
 
