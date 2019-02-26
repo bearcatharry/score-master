@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import Selection from './setting.js';
 
 class App extends Component {
 
@@ -8,22 +9,25 @@ class App extends Component {
     this.getScore = this.getScore.bind(this);
 
     // const score = this.getScore();
+    // let Selection = new Selection();
    
     // Get initial state.
     this.state = {
-      score: 0
+      score: 0,
+      // isSelected: Selection.isSelected
     };
 
     this.getScore();
 
   }
-  
 
   
   getScore() {
     let homeScore;
     let url;
-    url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
+    url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
+    // url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
+
     let home;
 
     fetch(url)
@@ -33,17 +37,19 @@ class App extends Component {
 
         let games = response.events;
 
+        console.log(games);
+
         let home = games[6].competitions[0].competitors[0];
 
         homeScore = parseInt(home.score, 10);
 
-        console.log(homeScore);
+        // console.log(homeScore);
 
         this.setState({
             score: homeScore
         });
       });
-      console.log(this.state.score);
+      // console.log(this.state.score);
   }
 
 
