@@ -2,27 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import momentTz from 'moment-timezone';
 
-
 //  COMPONENT
 class Dates extends Component {
   
-  constructor() {
-    super();
+  //  RENDER
+  render() {
 
-    // Bind the context.
-    this.renderDate = this.renderDate.bind(this);
-  }
-  
-
-  //  RENDER DATES
-  renderDate(game) {
-    const key = 0;
-    const date = this.props.dates[key];
     const activeDate = this.props.activeDate;
-    const timeScore = game.status.type.shortDetail;
+    const timeScore = this.props.status;
 
-    const dateDisplay = date.estDisplay;
-    const dateString = date.estString;
+    const dateDisplay = getDateDisplay(activeDate);
+    // timeScore = getTimeDisplay(activeDate);
 
     return(
       <React.fragment>
@@ -30,22 +20,13 @@ class Dates extends Component {
       <div class="row bg-light">{timeScore}</div>
       </React.fragment>
     );
-  }
-
-
-  //  RENDER
-  render() {
-
-    // Get dates prop.
-    const dates = this.props.dates;
-
-    return (
-      <nav className="dates-nav">
-        <ul className="dates-nav__list">
-          {Object.keys(dates).map(this.renderDate)}
-        </ul>
-      </nav>
-    );
+    // return (
+    //   <nav className="dates-nav">
+    //     <ul className="dates-nav__list">
+    //       {Object.keys(dates).map(this.renderDate)}
+    //     </ul>
+    //   </nav>
+    // );
   }
 }
 
@@ -54,11 +35,11 @@ class Dates extends Component {
 //  PROP TYPES
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-// DatesNav.propTypes = {
-//   dates: PropTypes.array.isRequired,
-//   activeDate: PropTypes.string.isRequired,
+Dates.propTypes = {
+  activeDate: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
 //   updateDate: PropTypes.func.isRequired
-// }
+}
 
 export default Dates;
 
@@ -88,9 +69,9 @@ export function getTodayDate() {
 
 
 export function addDays(date, days) {
-  var date = new Date(date);
-  date.setDate(date.getDate() + days);
-  return date;
+  var newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + days);
+  return newDate;
 }
 
 
@@ -98,18 +79,19 @@ export function addDays(date, days) {
 export function createPastDates( date ) {
   const dates = [];
   var dateString = date.estString;
-  var currentMonth = parseInt(dateString.slice(4,6));
+  // month is zero-indexed
+  var currentMonth = parseInt(dateString.slice(4,6) - 1);
   var currentYear = parseInt(dateString.slice(0,4));
+  var currentDay = parseInt(dateString.slice(6,8));
   var lastMonth = currentMonth - 1;
   var lastYear = currentYear;
-  if (lastMonth === 0) {
+  if (lastMonth === -1) {
     lastMonth = 12;
     lastYear = currentYear - 1;
   }
 
-  var currentDate = new Date(lastYear, lastMonth)
-  var endDate = new Date(currentYear, currentMonth)
-
+  var currentDate = new Date(lastYear, lastMonth, currentDay)
+  var endDate = new Date(currentYear, currentMonth, currentDay)
   while (currentDate < endDate) {
     // Local times.
     var thisDate = {};
@@ -121,12 +103,11 @@ export function createPastDates( date ) {
     thisDate.localDisplay = getDateDisplay( pastDate );
 
     // EST times.
-    var estPast = getEstToday();
+    var estPast = getEstDate(pastDate);
     estPast.setDate( estPast.getDate());
     thisDate.est = estPast;
     thisDate.estString = getDateString( estPast );
     thisDate.estDisplay = getDateDisplay( estPast );
-
     dates.push(thisDate);
     currentDate = addDays(currentDate, 1);
   }
@@ -138,17 +119,18 @@ export function createPastDates( date ) {
 export function createFutureDates( date ) {
   const dates = [];
   var dateString = date.estString;
-  var currentMonth = parseInt(dateString.slice(4,6));
+  var currentDay = parseInt(dateString.slice(6,8));
+  var currentMonth = parseInt(dateString.slice(4,6) - 1);
   var currentYear = parseInt(dateString.slice(0,4));
   var nextMonth = currentMonth + 1;
   var nextYear = currentYear;
-  if (nextMonth > 12) {
+  if (nextMonth >= 12) {
     nextMonth = 1;
     nextYear = currentYear + 1;
   }
 
-  var currentDate = new Date(currentYear, currentMonth)
-  var endDate = new Date(nextYear, nextMonth)
+  var currentDate = new Date(currentYear, currentMonth, currentDay)
+  var endDate = new Date(nextYear, nextMonth, currentDay)
 
   while (currentDate <= endDate) {
     // Local times.
@@ -161,7 +143,7 @@ export function createFutureDates( date ) {
     thisDate.localDisplay = getDateDisplay( futureDate );
 
     // EST times.
-    var estFuture = getEstToday();
+    var estFuture = getEstDate(futureDate);
     estFuture.setDate( estFuture.getDate());
     thisDate.est = estFuture;
     thisDate.estString = getDateString( estFuture );
@@ -196,10 +178,32 @@ export function getEstToday() {
   var clientDate = new Date();
   var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
   var estToday = new Date(utc + (3600000*offset));
-
   return estToday;
 } // getEstToday()
 
+
+//  GET EST TODAY
+export function getEstDate(date) {
+
+  // Get equivalent EST time.
+  // https://stackoverflow.com/questions/9070604/how-to-convert-datetime-from-the-users-timezone-to-est-in-javascript
+
+  // EST offset.
+  var offset;
+
+  // If NY is in daylight savings time (uses moment.js).
+  if ( momentTz.tz('America/New_York').isDST() ) {
+    offset = -4.0;
+  // If NY is NOT in daylight savings time.
+  } else {
+    offset = -5.0;
+  }
+
+  var clientDate = new Date(date);
+  var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+  var estDate = new Date(utc + (3600000*offset));
+  return estDate;
+} // getEstDate()
 
 //  GET DATE STRING
 export function getDateString( date ) {

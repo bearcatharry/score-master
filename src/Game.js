@@ -25,18 +25,18 @@ class Game extends Component {
 
   renderGame(game) {
     // Game ID.
-    const { id: gameId } = game;
+    // const { id: gameId } = game;
 
     // for now just implementing NBA league
     let sport = "nba";
-
+    let activeDate = game.date;
     let timeScore;
-    let gameStatusClass;
+    // let gameStatusClass;
     const status = game.status.type.state; // pre, in, post.
 
     // Get start date.
-    // const startDateString = game.competitions[0].startDate;
-    // const startDate = new Date( startDateString );
+    const startDateString = game.competitions[0].startDate;
+    const startDate = new Date( startDateString );
 
     const away = game.competitions[0].competitors[1];
     const home = game.competitions[0].competitors[0];
@@ -44,7 +44,8 @@ class Game extends Component {
     const awayScore = parseInt(away.score, 10);
     const homeScore = parseInt(home.score, 10);
     let winner = "";
-    let game__status = ""
+    // let game__status = ""
+    
     // Get today's date.
     const today = new Date();
 
@@ -65,7 +66,7 @@ class Game extends Component {
     // If game is yet to start.
     if (status === "pre") {
       winner = "";
-      gameStatusClass = "game--pre";
+      // gameStatusClass = "game--pre";
 
       // Use EST start time from API.
       timeScore = game.status.type.shortDetail;
@@ -80,12 +81,12 @@ class Game extends Component {
       // If game is live.
     } else if (status === "in") {
       winner = "";
-      gameStatusClass = "game--live";
+      // gameStatusClass = "game--live";
       timeScore = game.status.type.shortDetail;
 
       // If game is over.
     } else if (status === "post") {
-      gameStatusClass = "game--post";
+      // gameStatusClass = "game--post";
       timeScore = game.status.type.shortDetail;
 
       // If the home team is the winner.
@@ -101,11 +102,13 @@ class Game extends Component {
     }
 
     return (
-      <React.fragment>{Dates.render()}
-      <div class="row bg-light">
-          <Team data={away} homeOrAway="away" winner={winner} status={status} />
-          <Team data={home} homeOrAway="home" winner={winner} status={status} />
-      </div>
+
+      <React.fragment>
+        <Dates activeDate={activeDate} status={timeScore} />
+        <div class="row bg-light">
+            <Team data={away} homeOrAway="away" winner={winner} status={status} />
+            <Team data={home} homeOrAway="home" winner={winner} status={status} />
+        </div>
       </React.fragment>
     );
   }
@@ -117,8 +120,12 @@ class Game extends Component {
   render() {
     // Destructure props.
     const { game } = this.props;
-
-    return <div className="game col-12">{this.renderGame(game)}</div>;
+    console.log(game);
+    return (
+      <React.fragment>
+      <div className="game col-12">{this.renderGame(game)}</div>;
+      </React.fragment>
+      )
 
   }
 }
@@ -128,7 +135,7 @@ class Game extends Component {
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 Game.propTypes = {
-  game: PropTypes.object.isRequired
+  game: PropTypes.object.isRequired,
 };
 
 export default Game;

@@ -10,13 +10,21 @@ import PropTypes from "prop-types";
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 class Team extends Component {
+
   render() {
     // Destructure props.
     const { data, homeOrAway, status, winner } = this.props;
+    console.log(data);
+    console.log(homeOrAway);
+
+    console.log(status);
+
+    console.log(winner);
 
     // Destructure data.
     let record;
     let { records } = data;
+    console.log(records);
     [records] = records;
     if (records && records.name === "Total") {
       record = records.summary;
@@ -38,11 +46,11 @@ class Team extends Component {
         teamClassName += " team--loser";
       }
     }
-
+    console.log(data.team.location);
     return (
       <React.fragment>
         <div class={teamClassName}>
-          <img src={data.team.logo} alt={data.team.location} alt="Rockets" class="team"/>
+          <img src={data.team.logo} alt={data.team.location} class="team"/>
         </div>
         <div class="col-7">{data.team.abbreviation}</div>
         <div class="col-3">
