@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { getTodayDate, createPastDates, createFutureDates }  from './Date';
-// import DatesNav from "./Date";
 import Games from './Games'
-import michigan from './images/michigan.png';
 
 class App extends Component {
 
@@ -164,13 +162,11 @@ class App extends Component {
 
   render() {
     return (
-      <div id="games" className="c">
         <Games
           activeDate={this.state.activeDate}
           games={this.state.games}
           noGames={this.state.noGames}
         />
-      </div>
     );
   }
 }

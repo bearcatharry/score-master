@@ -29,7 +29,6 @@ class Game extends Component {
 
     // for now just implementing NBA league
     let sport = "nba";
-    let activeDate = game.date;
     let timeScore;
     // let gameStatusClass;
     const status = game.status.type.state; // pre, in, post.
@@ -102,14 +101,11 @@ class Game extends Component {
     }
 
     return (
-
-      <React.fragment>
-        <Dates activeDate={activeDate} status={timeScore} />
-        <div class="row bg-light">
-            <Team data={away} homeOrAway="away" winner={winner} status={status} />
-            <Team data={home} homeOrAway="home" winner={winner} status={status} />
-        </div>
-      </React.fragment>
+      <div>
+        <Dates activeDate={startDate} status={timeScore} />
+        <Team data={away} homeOrAway="away" winner={winner} status={status} />
+        <Team data={home} homeOrAway="home" winner={winner} status={status} />
+      </div>
     );
   }
 
@@ -118,14 +114,11 @@ class Game extends Component {
   //––––––––––––––––––––––––––––––––––––––––––––––––––
 
   render() {
-    // Destructure props.
+
     const { game } = this.props;
-    console.log(game);
     return (
-      <React.fragment>
-      <div className="game col-12">{this.renderGame(game)}</div>;
-      </React.fragment>
-      )
+        <div className="game col-12">{this.renderGame(game)}</div>
+    );
 
   }
 }

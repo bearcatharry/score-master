@@ -14,12 +14,6 @@ class Team extends Component {
   render() {
     // Destructure props.
     const { data, homeOrAway, status, winner } = this.props;
-    console.log(data);
-    console.log(homeOrAway);
-
-    console.log(status);
-
-    console.log(winner);
 
     // Destructure data.
     let record;
@@ -31,37 +25,37 @@ class Team extends Component {
     }
 
     // Team class name.
-    let teamClassName = "col-2 team--" + homeOrAway;
+    let teamClassName = "row bg-light team-" + homeOrAway;
 
     // If the game is over.
     if (status === "post") {
       // If this team is the winner.
       if (winner === homeOrAway) {
         // Add winner to the team name.
-        teamClassName += " team--winner";
+        teamClassName += " team-winner";
 
         // If this team is the loser.
       } else {
         // Add loser to the team name.
-        teamClassName += " team--loser";
+        teamClassName += " team-loser";
       }
     }
-    console.log(data.team.location);
+
     return (
-      <React.fragment>
-        <div class={teamClassName}>
-          <img src={data.team.logo} alt={data.team.location} class="team"/>
+      <div className={teamClassName}>
+        <div className="col-2">
+          <img src={data.team.logo} alt={data.team.location} className="team"/>
         </div>
-        <div class="col-7">{data.team.abbreviation}</div>
-        <div class="col-3">
+        <div className="col-6">{data.team.abbreviation}</div>
+        <div className="col-4 score-record">
           {/* Only show score if game is live or over. */}
           {status !== "pre" ? (
-            <span className="team__score">{data.score}</span>
+            <span className="team_score">{data.score}</span>
           ) : (
-            <span className="team__record">{record}</span>
+            <span className="team_record">{record}</span>
           )}
         </div>
-      </React.fragment>
+      </div>
     );
   }
 }

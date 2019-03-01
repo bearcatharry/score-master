@@ -27,8 +27,8 @@ class Games extends Component {
         
       </div>
     ) : (
-      <div>
-        No games
+      <div className="no-games">
+        No games available
       </div>
     )
   }

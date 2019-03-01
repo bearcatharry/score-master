@@ -15,10 +15,10 @@ class Dates extends Component {
     // timeScore = getTimeDisplay(activeDate);
 
     return(
-      <React.fragment>
-      <div class="row"><h3>{dateDisplay}</h3></div>
-      <div class="row bg-light">{timeScore}</div>
-      </React.fragment>
+      <div className="datetime">
+        <div className="row date">{dateDisplay}</div>
+        <div className="row bg-light time">{timeScore}</div>
+      </div>
     );
     // return (
     //   <nav className="dates-nav">
