@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Selection from './setting';
 import * as serviceWorker from './serviceWorker';
 
+ReactDOM.render(<Selection />, document.getElementById('select'));
 ReactDOM.render(<App />, document.getElementById('all-games'));
 
 // If you want your app to work offline and load faster, you can change

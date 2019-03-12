@@ -18,7 +18,6 @@ class Team extends Component {
     // Destructure data.
     let record;
     let { records } = data;
-    console.log(records);
     [records] = records;
     if (records && records.name === "Total") {
       record = records.summary;
