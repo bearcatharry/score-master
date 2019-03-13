@@ -36,8 +36,8 @@ document.getElementById("done").addEventListener("click", function() {
 
 //     })
 // }
-var teamImgs = ReactDOM.findDOMNode(Navbar);
-console.log(teamImgs);
+// var teamImgs = document.getElementsByClassName("fav-team");
+// console.log(teamImgs);
 // var myFunction = function() {
 //     var attribute = this.getAttribute("alt");
 //     team = attribute;

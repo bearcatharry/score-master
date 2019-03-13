@@ -15,11 +15,11 @@ class Selection extends Component {
       chrome.storage.sync.get("basketballList", function (result) {
         if (!chrome.runtime.error) {
           var teamnames = result.basketballList;
-          console.log('previous teams are:',teamnames);
+          // console.log('previous teams are:',teamnames);
           for (var i = 0; i < Object.keys(data).length-1; i++) {
             if (teamnames.includes(data[i].abbreviation)) {
               selectedTeams.push(true);
-              console.log('already existed!')
+              // console.log('already existed!')
             } else {
               selectedTeams.push(false);
 
@@ -66,7 +66,7 @@ class Selection extends Component {
       // console.log("Basketball list added");
     });
     for (i = 0; i < 1; i++) {}
-    console.log('update list:', listOfObjects);
+    // console.log('update list:', listOfObjects);
     
     
     

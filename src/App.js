@@ -59,7 +59,7 @@ class App extends Component {
           teams: teamnames,
           team: favTeam
           })
-          this.getGames(this.state.team);
+          this.getGames(this.state.teams);
 
         }
       }
