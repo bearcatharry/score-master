@@ -43,10 +43,12 @@ class Navbar extends Component {
         }
       });
       // map team name with team logo url 
-      for (var i = 0; i < this.state.teams.length; i++) {
-        var teamLogo = url + this.state.teams[i] + '.png';
-        var teamName = this.state.teams[i];
-        logos.push(<img src={teamLogo} alt={teamName} id={i} className="fav-team col-2"/>)
+      if (this.state.teams) {
+          for (var i = 0; i < this.state.teams.length; i++) {
+            var teamLogo = url + this.state.teams[i] + '.png';
+            var teamName = this.state.teams[i];
+            logos.push(<img src={teamLogo} alt={teamName} id={i} className="fav-team col-2"/>)
+          }
       }
       if (logos.length === 0) {
         logos.push(<img alt="" id="0" className="fav-team col-2" />)

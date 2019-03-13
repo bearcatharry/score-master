@@ -26,6 +26,7 @@ class App extends Component {
       team: ""
     };
 
+
   }
 
   getTeams(){
@@ -203,7 +204,22 @@ class App extends Component {
   //––––––––––––––––––––––––––––––––––––––––––––––––––
   componentWillMount() {
     this.getTeams();
-    // this.getGames(this.state.team);
+    chrome.storage.sync.get("basketballList", (result) => {
+      if (!chrome.runtime.error) {
+        var teams = result.basketballList;
+        this.setState({
+          team: teams[0]
+        });
+        console.log(this.state);
+
+        // console.log(result);
+
+      } else {
+          console.log("ffffff");
+
+      }
+    });
+    this.getGames(this.state.team);
   }
 
 
