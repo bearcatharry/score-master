@@ -1,6 +1,7 @@
 /*global chrome*/
 
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import { getTodayDate, createPastDates, createFutureDates }  from './Date';
 import Games from './Games'
 var teamnames = [];
@@ -46,12 +47,17 @@ class App extends Component {
     // for (i = 0; i < 1; i++) {}
     // // for (var i = 0; i < 10; i++) {}
     chrome.storage.onChanged.addListener((changes, area) => {
-      if (area == "sync" && "basketballList" in changes) {
+      if (area === "sync" && "basketballList" in changes) {
         teamnames = changes.basketballList.newValue;
+        var favTeam = this.state.team;
+        if (this.state.team === "") {
+          favTeam = teamnames[0]
+        }
+
         if (teamnames.length > 0) {
           this.setState({
           teams: teamnames,
-          team: teamnames[0]
+          team: favTeam
           })
           this.getGames(this.state.team);
 
@@ -212,5 +218,8 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  team: PropTypes.string.isRequired,
+};
 
 export default App;

@@ -5,59 +5,55 @@
 import React, { Component } from 'react';
 import * as data from './nbaTeams.json';
 
-var teamnames = [];
 
 class Selection extends Component {
   constructor() {
-  	super();
+    super();
 
-  	let selectedTeams = [];
+    let selectedTeams = [];
+    // check the storage before restarting the chrome extension
+      chrome.storage.sync.get("basketballList", function (result) {
+        if (!chrome.runtime.error) {
+          var teamnames = result.basketballList;
+          console.log('previous teams are:',teamnames);
+          for (var i = 0; i < Object.keys(data).length-1; i++) {
+            if (teamnames.includes(data[i].abbreviation)) {
+              selectedTeams.push(true);
+              console.log('already existed!')
+            } else {
+              selectedTeams.push(false);
 
-  	for (var i = 0; i < Object.keys(data).length-1; i++) {
-  		selectedTeams.push(false);
-	}
+            }
+          }
 
-  	this.state = {
+        } else {
+                  console.log("ffffff");
+
+        }
+
+        // result is the stored list
+      });
+    for (var i = 0; i < 1; i++) {}
+
+
+    this.state = {
       selectedTeams: selectedTeams, //index of selected teams
       selectedTeamNames: [],
       isSelected: false,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
 
     // this.getTeams();
     // console.log(data[0].abbreviation);
   }
-
-  handleInputChange(event, i) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    // const name = target.name;
-    const selectedIndex = event.target.dataset.indexnumber
-
-    // console.log(value);
-    // console.log(selectedIndex);
-
-    let selectedTeams = this.state.selectedTeams;
-  	selectedTeams[selectedIndex] = value;
-
-
-  	let selectedTeamNames = [];
-  	for (var i = 0; i < Object.keys(data).length-1; i++){
-  		if (selectedTeams[i]){
-  			selectedTeamNames.push(data[i].abbreviation);
-  		}
-  	}
-
-  	this.setState({
-    	selectedTeams: selectedTeams,
-    	selectedTeamNames: selectedTeamNames
-  	});
+  handleUpdate () {
     var listOfObjects = [];
     var a = this.state.selectedTeamNames;
     // console.log(a);
 
-    a.map(function(entry) {
+  a.map(function(entry) {
 
     // var singleObj = {};
     // singleObj['name'] = entry;
@@ -70,11 +66,36 @@ class Selection extends Component {
       // console.log("Basketball list added");
     });
     for (i = 0; i < 1; i++) {}
+    console.log('update list:', listOfObjects);
+    
+    
+    
+  });
+}
+  handleInputChange(event, i) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    // const name = target.name;
+    const selectedIndex = event.target.dataset.indexnumber
 
-    
-    
-    
-});
+    // console.log(value);
+    // console.log(selectedIndex);
+
+    let selectedTeams = this.state.selectedTeams;
+    selectedTeams[selectedIndex] = value;
+
+
+    let selectedTeamNames = [];
+    for (var i = 0; i < Object.keys(data).length-1; i++){
+      if (selectedTeams[i]){
+        selectedTeamNames.push(data[i].abbreviation);
+      }
+    }
+    var listOfObjects = [];
+    this.setState({
+      selectedTeams: selectedTeams,
+      selectedTeamNames: selectedTeamNames}, this.handleUpdate)
+}
     // var j;
     // for (j = 0; j < 1; j++) {
     //   chrome.storage.sync.get("basketballList", function (result) {
@@ -97,27 +118,27 @@ class Selection extends Component {
     // // this.setState({
     // //   selectedTeams[selectedIndex] : value
     // // });
-  }
+  
 
   getAllTeams(){
-  	var indents = [];
+    var indents = [];
 
-	for (var i = 0; i < Object.keys(data).length - 1; i++) {
-  		indents.push(<form className='indent' key={i}>
-  		<label>
+  for (var i = 0; i < Object.keys(data).length - 1; i++) {
+      indents.push(<form className='indent' key={i}>
+      <label>
           {data[i].abbreviation}
           <input
             // name={`make-${index}`}
             data-indexnumber = {i}
             type="checkbox"
-            checked={this.state.selectedTeams[i]}
-            onChange={this.handleInputChange } />
+            onChange={this.handleInputChange }
+            checked={this.state.selectedTeams[i]} />
         </label>
         <br />
       </form>);
-	}
+  }
 
-	return indents;
+  return indents;
   }
 
 
@@ -128,39 +149,30 @@ class Selection extends Component {
  //  // var listNames = []
 
 
-	
+  
 
-	// return indents;
+  // return indents;
 
  //  }
-showSelected(){
+
+
+  showSelected(){
 
     var indents = [];
-
-  for (var i = 0; i < this.state.selectedTeamNames.length; i++) {
-      indents.push(<div>{this.state.selectedTeamNames[i]}</div>);
-   }
-  var i = 0;
-  var teamnames = [];
-  for (i = 0; i < 1; i++) {}
-  chrome.storage.sync.get("basketballList", function (result) {
-          if (!chrome.runtime.error) {
-            // console.log("Succeed getting basketballList");
-          
-          teamnames = result.basketballList;
-          // console.log(teamnames);
-          var name;
-          for (var j = 0; j < teamnames.length; j++) {
-            name = teamnames[j];
-            indents.push(<div>{name}</div>);
-          }
-
-          // console.log(teamnames.length);
-
-
-          }
-  });
-  for (i = 0; i < 1; i++) {}
+  // teamSel = [];
+  //  chrome.storage.onChanged.addListener((changes, area) => {
+  //     if (area == "sync" && "basketballList" in changes) {
+  //         var teamnames = changes.basketballList.newValue;
+  //         // console.log('the updated teams are: ',teamnames);
+  //         for (var i = 0; i < teamnames.length; i++) {
+  //             indents.push(<div>{teamnames[i]}</div>);
+  //             teamSel.push(teamnames[i])
+  //           }
+  //       }
+     
+  //   });
+  
+  
   return indents;
 
   }
@@ -190,16 +202,20 @@ showSelected(){
   //   );
   // }
 
+
   render() {
 
     return (
-    	<div>
-    	{this.showSelected()}
-    	{this.getAllTeams()}
-    	</div>
-    	); 
-	}
+      <div>
+        {this.showSelected()}
+        {this.getAllTeams()}
+        <button type="button" id="done" class="btn btn-primary">Done</button>
+
+      </div>
+      ); 
+  }
 
 }
+
 
 export default Selection;
