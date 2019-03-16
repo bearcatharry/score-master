@@ -64,7 +64,7 @@
   },
   {
     "teamId": 1610612744,
-    "abbreviation": "GSW",
+    "abbreviation": "GS",
     "teamName": "Golden State Warriors",
     "simpleName": "Warriors",
     "location": "Golden State"
@@ -127,7 +127,7 @@
   },
   {
     "teamId": 1610612740,
-    "abbreviation": "NOP",
+    "abbreviation": "NO",
     "teamName": "New Orleans Pelicans",
     "simpleName": "Pelicans",
     "location": "New Orleans"
@@ -197,7 +197,7 @@
   },
   {
     "teamId": 1610612762,
-    "abbreviation": "UTA",
+    "abbreviation": "UTAH",
     "teamName": "Utah Jazz",
     "simpleName": "Jazz",
     "location": "Utah"
