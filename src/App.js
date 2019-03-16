@@ -191,7 +191,7 @@ class App extends Component {
       allGames = futureGames;
 
     }
-    console.log(team, allGames);
+    // console.log(team, allGames);
     if ((allGames.length) > 0) {
       // Search this team's game
       // Update state.

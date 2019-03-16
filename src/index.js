@@ -24,6 +24,7 @@ document.getElementById("done").addEventListener("click", function() {
     show(isSetting);
 });
 
+
 // for (var i = 0; i < 3; i++) {
 //     var n = i.toString();
 //     console.log('id', i, document.getElementById(i));
@@ -34,7 +35,7 @@ document.getElementById("done").addEventListener("click", function() {
 
 //     })
 // }
-// var teamImgs = document.getElementsByClassName("fav-team");
+
 // console.log(teamImgs);
 // var myFunction = function() {
 //     var attribute = this.getAttribute("alt");

@@ -1,8 +1,8 @@
 /*global chrome*/
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from "prop-types";
 
-class Navbar extends Component {
+class Navbar extends PureComponent {
     constructor() {
         super();
         this.state = {
@@ -26,7 +26,6 @@ class Navbar extends Component {
       //   });
 
       // }
-
       var url = "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/";
       chrome.storage.sync.get("basketballList", (result) => {
         if (!chrome.runtime.error) {
@@ -54,19 +53,28 @@ class Navbar extends Component {
         logos.push(<img alt="" id="0" className="fav-team col-2" />)
       }
 
-
-
       return logos;
     }
 
 
     render() {
-        return this.renderTeams();
+      return this.renderTeams();
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.state !== nextState);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   console.log('component update, teams',this.state.teams, nextState.teams);
+    //   if (this.state.teams.length !== nextState.teams.length) {
+    //     return true;
+    //   }
+    //   if (this.state.teams.length === nextState.teams.length) {
+    //     for(var i = 0; i < nextState.teams.length; i++) {
+    //       if (this.state.teams[i] !== nextState.teams[i]) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    //   return false;
+    // }
 
 }
 

@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import * as data from './nbaTeams.json';
-
+import Navbar from './Navbar';
 
 class Selection extends Component {
   constructor() {
