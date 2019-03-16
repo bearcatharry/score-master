@@ -1,27 +1,90 @@
+/*global chrome*/
+
 import React, { Component } from 'react';
+<<<<<<< HEAD
 // import Selection from './setting.js';
+=======
+import PropTypes from "prop-types";
+import { getTodayDate, createPastDates, createFutureDates }  from './Date';
+import Games from './Games'
+var teamnames = [];
+>>>>>>> master
 
 class App extends Component {
 
   constructor() {
     super();
 
-    this.getScore = this.getScore.bind(this);
-
+    this.getGames = this.getGames.bind(this);
+    this.getTeams = this.getTeams.bind(this);
+    const activeDate = getTodayDate().estString;
     // const score = this.getScore();
+<<<<<<< HEAD
     // let Selection = new Selection();
    
     // Get initial state.
     this.state = {
       score: 0,
       // isSelected: Selection.isSelected
+=======
+
+
+    // Get initial state.
+    this.state = {
+      activeDate: activeDate,
+      games: [],
+      noGames: false,
+      teams: [],
+      team: ""
+>>>>>>> master
     };
 
-    this.getScore();
 
   }
 
+  getTeams(){
+    // for (var i = 0; i < 1; i++) {}
+    // chrome.storage.sync.get("basketballList", function (result) {
+    //   if (!chrome.runtime.error) {
+    //     // console.log("Succeed getting basketballList");
+      
+    //     teamnames = result.basketballList;
+    //     // console.log(teamnames);
+    //     // if (teamnames.length > 0) {
+    //     // this.setState({
+    //     //   teams: teamnames,
+    //     //   team: teamnames[0]
+    //     // })
+    //     // console.log(this.state);
+    //   }
+    // });
+    // for (i = 0; i < 1; i++) {}
+    // // for (var i = 0; i < 10; i++) {}
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === "sync" && "basketballList" in changes) {
+        teamnames = changes.basketballList.newValue;
+        var favTeam = this.state.team;
+        if (this.state.team === "") {
+          favTeam = teamnames[0]
+        }
+
+        if (teamnames.length > 0) {
+          this.setState({
+          teams: teamnames,
+          team: favTeam
+          })
+          this.getGames(this.state.teams);
+
+        }
+      }
+      console.log('the updated teams are: ',teamnames);
+    });
+
+    
+  }
   
+  
+<<<<<<< HEAD
   getScore() {
     let homeScore;
     let url;
@@ -29,52 +92,188 @@ class App extends Component {
     // url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
 
     let home;
+=======
+  async getGames(team){
+    // Get today's date.
+    var today = new Date();
+    var currentMonth = today.getMonth();
 
-    fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        // console.log(response);
+    let pastDates = createPastDates(getTodayDate());
+    let futureDates = createFutureDates(getTodayDate());
+    const pastGame = [];
+    const futureGames = [];
 
-        let games = response.events;
+    // Find most recent PAST game
+    for (var i = 0; i < pastDates.length; i++) {
+      let activeDate = pastDates[i].estString;
+      let url;
 
+      // If it's July... (note that January is 0)
+      if (currentMonth === 6) {
+        // Summer League API URL
+        url =
+          "http://site.api.espn.com/apis/site/v2/sports/basketball/nba-summer-league/scoreboard?lang=en&calendartype=blacklist&limit=100&league=nba-summer-las-vegas&dates=" +
+          activeDate;
+
+      // If it's not July
+      } else {
+        // NBA API URL.
+        url =
+          "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=" +
+          activeDate;
+      }
+      
+      let res = await fetch(url);
+      let json = await res.json();
+
+      const tmpGames = json.events;
+      for (var j = 0; j < tmpGames.length; j++) {
+        let gameName = tmpGames[j].shortName;
+        if (gameName.includes(team)) {
+          pastGame.push(tmpGames[j]);
+          break;
+        }
+      }
+      if (pastGame.length === 1) {
+        break;
+      }   
+    }
+
+    // Find NEXT Games
+    for (i = 0; i < futureDates.length; i++) {
+      let activeDate = futureDates[i].estString;
+      let url;
+      // If it's July... (note that January is 0)
+      if (currentMonth === 6) {
+        // Summer League API URL
+        url =
+          "http://site.api.espn.com/apis/site/v2/sports/basketball/nba-summer-league/scoreboard?lang=en&calendartype=blacklist&limit=100&league=nba-summer-las-vegas&dates=" +
+          activeDate;
+
+      // If it's not July
+      } else {
+        // NBA API URL.
+        url =
+          "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=" +
+          activeDate;
+      }
+      let res = await fetch(url);
+      let json = await res.json();
+
+      const tmpGames = json.events;
+      for (j = 0; j < tmpGames.length; j++) {
+        let gameName = tmpGames[j].shortName;
+        if (gameName.includes(team)) {
+          futureGames.push(tmpGames[j]);
+          break;
+        }
+      }
+
+      if (futureGames.length === 2) {
+        break;
+      } 
+    }
+
+
+    var allGames = pastGame.concat(futureGames);
+    if ((allGames.length) > 0) {
+      // Search this team's game
+      // Update state.
+      this.setState({
+        games: allGames,
+        noGames: false
+      });
+      // If there are no games.
+    } else {
+      // Update state.
+      this.setState({
+        games: [],
+        noGames: true
+      });
+    }
+  }
+
+  // This is not needed. Remember to delete
+  // getScore() {
+  //   let homeScore;
+  //   let url;
+  //   url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
+  //   let home;
+>>>>>>> master
+
+  //   fetch(url)
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       // console.log(response);
+
+  //       let games = response.events;
+
+<<<<<<< HEAD
         //console.log(games);
 
         let home = games[6].competitions[0].competitors[0];
+=======
+  //       let home = games[6].competitions[0].competitors[0];
+>>>>>>> master
 
-        homeScore = parseInt(home.score, 10);
+  //       homeScore = parseInt(home.score, 10);
 
+<<<<<<< HEAD
         // console.log(homeScore);
+=======
+  //       console.log(homeScore);
+>>>>>>> master
 
+  //       this.setState({
+  //           score: homeScore
+  //       });
+  //     });
+  //     console.log(this.state.score);
+  // }
+
+  //
+  //  COMPONENT WILL MOUNT
+  //––––––––––––––––––––––––––––––––––––––––––––––––––
+  componentWillMount() {
+    chrome.storage.sync.get("basketballList", (result) => {
+      if (!chrome.runtime.error) {
+        var teams = result.basketballList;
         this.setState({
-            score: homeScore
+          team: teams[0]
         });
+<<<<<<< HEAD
       });
       // console.log(this.state.score);
   }
+=======
+        console.log(this.state);
 
+        // console.log(result);
+>>>>>>> master
+
+      } else {
+          console.log("ffffff");
+
+      }
+    });
+    this.getTeams();
+    this.getGames(this.state.team);
+  }
 
 
   render() {
     return (
-      <div class="game col-128888">
-            <div class="row"><h4>Feb 2</h4></div>
-            <div class="row bg-light">4:00 PM</div>
-            <div class="row bg-light">
-                <div class="col-2">
-                    <img src="/images/houston_rockets.png" alt="Houston Rockets" class="team"/>
-                </div>
-                <div class="col-7">Rockets</div>
-                <div class="col-3">{this.state.score}</div>
-                <div class="col-2">
-                    <img src="/images/michigan.png" alt="Michigan" class="team"/>
-                </div>
-                <div class="col-7">Michigan</div>
-                <div class="col-3">9999</div>
-            </div>
-      </div>
+        <Games
+          activeDate={this.state.activeDate}
+          games={this.state.games}
+          noGames={this.state.noGames}
+        />
     );
   }
 }
 
+App.propTypes = {
+  team: PropTypes.string.isRequired,
+};
 
 export default App;

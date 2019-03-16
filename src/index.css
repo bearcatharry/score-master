@@ -1,3 +1,17 @@
+#all-games {
+    height: 100%;
+    overflow: scroll;
+}
+
+#setting-tab {
+    margin: 0;
+    padding: 0;
+}
+
+#setting-tab>h3 {
+    padding: 3px 5px;
+}
+
 .fav-team {
     padding: 0 !important;
     background-color: gray;
@@ -9,7 +23,51 @@
 
 }
 
-#all-games {
-    height: 100%;
-    overflow: scroll;
+.game {
+    height: 158px;
+    padding: 0 0 7px 0;
+}
+
+.team-winner {
+    font-weight: bold;
+}
+
+.score-record {
+    font-size: 15px;
+    padding-right: 25px;
+    padding-top: 10px;
+}
+
+.col-4 {
+    text-align: right;
+}
+
+.col-6 {
+    padding-top: 10px;
+
+}
+.no-games {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.date {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px 0px 0px 20px;
+}
+
+.time {
+    font-size: 15px;
+    font-weight: 300;
+    padding: 5px 20px;
+}
+
+.team-away, .team-home {
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.team-record {
+    font-style: italic;
 }
