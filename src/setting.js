@@ -32,8 +32,8 @@ class Selection extends Component {
     // const name = target.name;
     const selectedIndex = event.target.dataset.indexnumber
 
-    console.log(value);
-    console.log(selectedIndex);
+    // console.log(value);
+    // console.log(selectedIndex);
 
     let selectedTeams = this.state.selectedTeams;
   	selectedTeams[selectedIndex] = value;
@@ -45,6 +45,10 @@ class Selection extends Component {
   			selectedTeamNames.push(data[i].abbreviation);
   		}
   	}
+
+  	// console.log(Object.keys(data).length - 1);
+  	console.log("in handleinput", this.state);
+  	//console.log(this.state.selectedTeamNames);
 
   	this.setState({
     	selectedTeams: selectedTeams,
@@ -82,7 +86,7 @@ class Selection extends Component {
 
   	var indents = [];
 
-  	console.log(this.state);
+  	console.log("in show", this.state);
 
 
 	for (var i = 0; i < this.state.selectedTeamNames.length; i++) {

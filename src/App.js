@@ -37,7 +37,7 @@ class App extends Component {
 
         let games = response.events;
 
-        console.log(games);
+        //console.log(games);
 
         let home = games[6].competitions[0].competitors[0];
 
