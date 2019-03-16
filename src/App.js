@@ -65,7 +65,6 @@ class App extends Component {
         }
       }
       console.log('the updated teams are: ',teamnames);
-      console.log(this.state);
     });
 
     
@@ -203,7 +202,6 @@ class App extends Component {
   //  COMPONENT WILL MOUNT
   //––––––––––––––––––––––––––––––––––––––––––––––––––
   componentWillMount() {
-    this.getTeams();
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
         var teams = result.basketballList;
@@ -219,6 +217,7 @@ class App extends Component {
 
       }
     });
+    this.getTeams();
     this.getGames(this.state.team);
   }
 

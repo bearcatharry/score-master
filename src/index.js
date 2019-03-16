@@ -17,13 +17,11 @@ document.getElementById('select').style.display = "none";
 document.getElementById("setting").addEventListener("click", function() {
     isSetting = true;
     show(isSetting);
-    console.log('setting clicked');
 });
 
 document.getElementById("done").addEventListener("click", function() {
     isSetting = false;
     show(isSetting);
-    console.log('done clicked');
 });
 
 // for (var i = 0; i < 3; i++) {
@@ -51,7 +49,6 @@ document.getElementById("done").addEventListener("click", function() {
 // };
 
 function show(isSetting) {
-    console.log(isSetting);
     if (isSetting) {
         document.getElementById('all-games').style.display = "none";
         document.getElementById('select').style.display = "block";
@@ -61,7 +58,6 @@ function show(isSetting) {
     else {
         document.getElementById('select').style.display = "none";
         document.getElementById('all-games').style.display = "block";
-
 
     }
 }
