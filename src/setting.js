@@ -1,33 +1,13 @@
 // Setting view
 // For MVP1 only select teams in NBA
-<<<<<<< HEAD
-=======
 /*global chrome*/
 
->>>>>>> master
 import React, { Component } from 'react';
 import * as data from './nbaTeams.json';
 
 
 class Selection extends Component {
   constructor() {
-<<<<<<< HEAD
-  	super();
-
-  	let selectedTeams = [];
-
-  	for (var i = 0; i < Object.keys(data).length - 1; i++) {
-  		selectedTeams.push(false);
-	}
-
-  	this.state = {
-      selectedTeams: selectedTeams, //index of selected teams
-      selectedTeamNames: [],
-      isSelected: false
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-=======
     super();
 
     let selectedTeams = [];
@@ -64,14 +44,11 @@ class Selection extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
->>>>>>> master
 
     // this.getTeams();
     // console.log(data[0].abbreviation);
   }
-<<<<<<< HEAD
 
-=======
   handleUpdate () {
     var listOfObjects = [];
     var a = this.state.selectedTeamNames;
@@ -96,7 +73,6 @@ class Selection extends Component {
     
   });
 }
->>>>>>> master
   handleInputChange(event, i) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -107,39 +83,6 @@ class Selection extends Component {
     // console.log(selectedIndex);
 
     let selectedTeams = this.state.selectedTeams;
-<<<<<<< HEAD
-  	selectedTeams[selectedIndex] = value;
-
-
-  	let selectedTeamNames = [];
-  	for (var i = 0; i < Object.keys(data).length - 1; i++){
-  		if (selectedTeams[i]){
-  			selectedTeamNames.push(data[i].abbreviation);
-  		}
-  	}
-
-  	// console.log(Object.keys(data).length - 1);
-  	console.log("in handleinput", this.state);
-  	//console.log(this.state.selectedTeamNames);
-
-  	this.setState({
-    	selectedTeams: selectedTeams,
-    	selectedTeamNames: selectedTeamNames
-  	});
-
-
-    // this.setState({
-    //   selectedTeams[selectedIndex] : value
-    // });
-  }
-
-  getAllTeams(){
-  	var indents = [];
-
-	for (var i = 0; i < Object.keys(data).length - 1; i++) {
-  		indents.push(<form className='indent' key={i}>
-  		<label>
-=======
     selectedTeams[selectedIndex] = value;
 
 
@@ -184,39 +127,11 @@ class Selection extends Component {
   for (var i = 0; i < Object.keys(data).length - 1; i++) {
       indents.push(<form className='indent' key={i}>
       <label>
->>>>>>> master
           {data[i].abbreviation}
           <input
             // name={`make-${index}`}
             data-indexnumber = {i}
             type="checkbox"
-<<<<<<< HEAD
-            checked={this.state.selectedTeams[i]}
-            onChange={this.handleInputChange } />
-        </label>
-        <br />
-      </form>);
-	}
-
-	return indents;
-  }
-
-  showSelected(){
-
-  	var indents = [];
-
-  	console.log("in show", this.state);
-
-
-	for (var i = 0; i < this.state.selectedTeamNames.length; i++) {
-  		indents.push(<div>{this.state.selectedTeamNames[i]}</div>);
-	}
-
-	return indents;
-
-  }
-
-=======
             onChange={this.handleInputChange }
             checked={this.state.selectedTeams[i]} />
         </label>
@@ -264,7 +179,6 @@ class Selection extends Component {
   }
 
 
->>>>>>> master
   // render() {
   //   return (
   //     <form>
@@ -289,20 +203,6 @@ class Selection extends Component {
   //   );
   // }
 
-<<<<<<< HEAD
-  render() {
-
-    return (
-    	<div>
-    	{this.showSelected()}
-    	{this.getAllTeams()}
-    	</div>
-    	); 
-	}
-
-}
-
-=======
 
   render() {
 
@@ -310,7 +210,7 @@ class Selection extends Component {
       <div>
         {this.showSelected()}
         {this.getAllTeams()}
-        <button type="button" id="done" class="btn btn-primary">Done</button>
+        <button type="button" id="done-button" class="btn btn-primary fixed-bottom">Done</button>
 
       </div>
       ); 
@@ -318,6 +218,4 @@ class Selection extends Component {
 
 }
 
-
->>>>>>> master
 export default Selection;

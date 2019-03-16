@@ -6,9 +6,10 @@
         "scripts": ["background.js"],
         "persistent": false
     },
-    "permissions": ["contextMenus"],
+    "permissions": ["contextMenus", "storage"],
     "browser_action": {
-        "default_popup": "index.html"
+        "default_popup": "index.html",
+        "default_title": "ScoreMaster"
     },
     "content_security_policy": "script-src 'self' https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'",
 

@@ -1,14 +1,10 @@
 /*global chrome*/
 
 import React, { Component } from 'react';
-<<<<<<< HEAD
-// import Selection from './setting.js';
-=======
 import PropTypes from "prop-types";
 import { getTodayDate, createPastDates, createFutureDates }  from './Date';
 import Games from './Games'
 var teamnames = [];
->>>>>>> master
 
 class App extends Component {
 
@@ -19,15 +15,6 @@ class App extends Component {
     this.getTeams = this.getTeams.bind(this);
     const activeDate = getTodayDate().estString;
     // const score = this.getScore();
-<<<<<<< HEAD
-    // let Selection = new Selection();
-   
-    // Get initial state.
-    this.state = {
-      score: 0,
-      // isSelected: Selection.isSelected
-=======
-
 
     // Get initial state.
     this.state = {
@@ -36,7 +23,6 @@ class App extends Component {
       noGames: false,
       teams: [],
       team: ""
->>>>>>> master
     };
 
 
@@ -73,7 +59,7 @@ class App extends Component {
           teams: teamnames,
           team: favTeam
           })
-          this.getGames(this.state.teams);
+          this.getGames(this.state.team);
 
         }
       }
@@ -83,17 +69,8 @@ class App extends Component {
     
   }
   
-  
-<<<<<<< HEAD
-  getScore() {
-    let homeScore;
-    let url;
-    url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
-    // url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
-
-    let home;
-=======
   async getGames(team){
+    console.log(this.state.team);
     // Get today's date.
     var today = new Date();
     var currentMonth = today.getMonth();
@@ -191,6 +168,8 @@ class App extends Component {
         noGames: true
       });
     }
+
+    console.log(this.state.team);
   }
 
   // This is not needed. Remember to delete
@@ -199,7 +178,6 @@ class App extends Component {
   //   let url;
   //   url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
   //   let home;
->>>>>>> master
 
   //   fetch(url)
   //     .then(response => response.json())
@@ -208,21 +186,11 @@ class App extends Component {
 
   //       let games = response.events;
 
-<<<<<<< HEAD
-        //console.log(games);
-
-        let home = games[6].competitions[0].competitors[0];
-=======
   //       let home = games[6].competitions[0].competitors[0];
->>>>>>> master
 
   //       homeScore = parseInt(home.score, 10);
 
-<<<<<<< HEAD
-        // console.log(homeScore);
-=======
   //       console.log(homeScore);
->>>>>>> master
 
   //       this.setState({
   //           score: homeScore
@@ -241,15 +209,10 @@ class App extends Component {
         this.setState({
           team: teams[0]
         });
-<<<<<<< HEAD
-      });
-      // console.log(this.state.score);
-  }
-=======
+
         console.log(this.state);
 
         // console.log(result);
->>>>>>> master
 
       } else {
           console.log("ffffff");

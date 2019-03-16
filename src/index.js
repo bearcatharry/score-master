@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Selection from './setting';
-<<<<<<< HEAD
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<Selection />, document.getElementById('select'));
-
-
-ReactDOM.render(<App />, document.getElementById('all-games'));
-=======
 import Navbar from './Navbar';
 import * as serviceWorker from './serviceWorker';
 
@@ -27,7 +19,7 @@ document.getElementById("setting").addEventListener("click", function() {
     show(isSetting);
 });
 
-document.getElementById("done").addEventListener("click", function() {
+document.getElementById("done-button").addEventListener("click", function() {
     isSetting = false;
     show(isSetting);
 });
@@ -70,7 +62,6 @@ function show(isSetting) {
     }
 }
 
->>>>>>> master
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
