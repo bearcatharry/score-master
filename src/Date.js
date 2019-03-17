@@ -235,7 +235,17 @@ export function getDateDisplay( date ) {
 
   var dateDisplay;
   var day = date.getDate();
-
+  var dayofWeek = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat'
+  ];
+  var dayWeek = date.getDay();
+  var dayWeekDisplay = dayofWeek[ dayWeek ];
   var monthNames = [
     'Jan', 
     'Feb', 
@@ -254,7 +264,7 @@ export function getDateDisplay( date ) {
   var month = date.getMonth();
   var monthDisplay = monthNames[ month ];
 
-  dateDisplay = monthDisplay + ' ' + day;
+  dateDisplay = dayWeekDisplay + ' ' + monthDisplay + ' ' + day;
   return dateDisplay;
 } // getDateDisplay
 
