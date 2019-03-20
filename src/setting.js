@@ -68,7 +68,7 @@ class Selection extends Component {
     // console.log(this.state);
     // this.getGames(this.state.team);
     // this.forceUpdateHandler();
-    console.log("restart, show previous selected");
+    // console.log("restart, show previous selected");
 }
   handleUpdate () {
     var listOfObjects = [];
@@ -187,14 +187,14 @@ showSelected() {
     var teamnames;
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
-        console.log(result);
+        // console.log(result);
         teamnames = result.basketballList;
-        console.log('Teams have been selected');
+        // console.log('Teams have been selected');
         this.setState({
         isSelected: true,
         }, this.handleRestart)
       } else {
-        console.log('not found select');   
+        // console.log('not found select');   
 
       }
     })
