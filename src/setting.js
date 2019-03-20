@@ -12,25 +12,31 @@ class Selection extends Component {
 
     let selectedTeams = [];
     // check the storage before restarting the chrome extension
-      chrome.storage.sync.get("basketballList", function (result) {
+      chrome.storage.sync.get("basketballList", (result) => {
         if (!chrome.runtime.error) {
           var teamnames = result.basketballList;
-          // console.log('previous teams are:',teamnames);
-          for (var i = 0; i < Object.keys(data).length-1; i++) {
-            if (teamnames.includes(data[i].abbreviation)) {
-              selectedTeams.push(true);
-              // console.log('already existed!')
-            } else {
-              selectedTeams.push(false);
-
+          if (teamnames === undefined || teamnames.length == 0) {
+            // array empty or does not exist
+            for (var i = 0; i < Object.keys(data).length-1; i++) {              
+                selectedTeams.push(false);
+            }
+          } else {
+            // user has selected a list of teamnames
+            for (var i = 0; i < Object.keys(data).length-1; i++) {
+              if (teamnames.includes(data[i].abbreviation)) {
+                selectedTeams.push(true);
+                // console.log('already existed!')
+              } else {
+                selectedTeams.push(false);
+              }
             }
           }
+          // console.log('previous teams are:',teamnames);
 
         } else {
                   console.log("ffffff");
 
         }
-
         // result is the stored list
       });
     for (var i = 0; i < 1; i++) {}
@@ -53,7 +59,7 @@ class Selection extends Component {
     var a = this.state.selectedTeamNames;
     // console.log(a);
 
-  a.map(function(entry) {
+    a.map(function(entry) {
 
     // var singleObj = {};
     // singleObj['name'] = entry;
@@ -61,9 +67,13 @@ class Selection extends Component {
     // console.log(entry)
     var i;
     for (i = 0; i < 1; i++) {}
-      chrome.storage.sync.set({"basketballList": listOfObjects}, function() {
+    chrome.storage.sync.set({"basketballList": listOfObjects}, (result) => {
       // Notify that we saved.
       // console.log("Basketball list added");
+    });
+    chrome.storage.sync.set({"select": 1}, (result) => {
+        console.log('key is', 'select');
+        console.log('select a team already:' ,1);
     });
     for (i = 0; i < 1; i++) {}
     // console.log('update list:', listOfObjects);
