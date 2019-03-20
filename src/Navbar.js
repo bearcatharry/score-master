@@ -11,7 +11,12 @@ class Navbar extends PureComponent {
         };
         // Bind the context.
         this.renderTeams = this.renderTeams.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
+    handleClick (text) {
+      console.log(text);
+  }
+
     // url example
     // "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cavs.png"
 
@@ -46,7 +51,8 @@ class Navbar extends PureComponent {
           for (var i = 0; i < this.state.teams.length; i++) {
             var teamLogo = url + this.state.teams[i] + '.png';
             var teamName = this.state.teams[i];
-            logos.push(<img src={teamLogo} alt={teamName} id={i} className="fav-team col-2"/>)
+            //onClick ={this.handleClick(teamName)}
+            logos.push(<img src={teamLogo} alt={teamName} id={i} className="fav-team col-2" />)
           }
       }
       if (logos.length === 0) {
@@ -61,20 +67,22 @@ class Navbar extends PureComponent {
       return this.renderTeams();
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   console.log('component update, teams',this.state.teams, nextState.teams);
-    //   if (this.state.teams.length !== nextState.teams.length) {
-    //     return true;
-    //   }
-    //   if (this.state.teams.length === nextState.teams.length) {
-    //     for(var i = 0; i < nextState.teams.length; i++) {
-    //       if (this.state.teams[i] !== nextState.teams[i]) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    //   return false;
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+      if (this.state.teams.length !== nextState.teams.length) {
+        console.log('component update: teams',this.state.teams, nextState.teams);
+        return true;
+      }
+      if (this.state.teams.length === nextState.teams.length) {
+        for(var i = 0; i < nextState.teams.length; i++) {
+          if (this.state.teams[i] !== nextState.teams[i]) {
+            console.log('component update: teams',this.state.teams, nextState.teams);
+            return true;
+          }
+        }
+      }
+      // console.log('should not component update: teams',this.state.teams, nextState.teams);
+      return false;
+    }
 
 }
 

@@ -50,10 +50,26 @@ class Selection extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+    this.handleReStart = this.handleReStart.bind(this);
+
 
     // this.getTeams();
     // console.log(data[0].abbreviation);
   }
+  forceUpdateHandler(){
+    this.forceUpdate();
+  };
+  handleReStart() {
+    // console.log(teamnames);
+    // console.log(this.state);
+    // this.setState({team: teamnames[0]});
+    // console.log(teamnames);
+    // console.log(this.state);
+    // this.getGames(this.state.team);
+    // this.forceUpdateHandler();
+    console.log("restart, show previous selected");
+}
   handleUpdate () {
     var listOfObjects = [];
     var a = this.state.selectedTeamNames;
@@ -72,7 +88,6 @@ class Selection extends Component {
       // console.log("Basketball list added");
     });
     chrome.storage.sync.set({"select": 1}, (result) => {
-        console.log('key is', 'select');
         console.log('select a team already:' ,1);
     });
     for (i = 0; i < 1; i++) {}
@@ -166,26 +181,50 @@ class Selection extends Component {
  //  }
 
 
-  showSelected(){
-
+showSelected() {
     var indents = [];
-  // teamSel = [];
-  //  chrome.storage.onChanged.addListener((changes, area) => {
-  //     if (area == "sync" && "basketballList" in changes) {
-  //         var teamnames = changes.basketballList.newValue;
-  //         // console.log('the updated teams are: ',teamnames);
-  //         for (var i = 0; i < teamnames.length; i++) {
-  //             indents.push(<div>{teamnames[i]}</div>);
-  //             teamSel.push(teamnames[i])
-  //           }
-  //       }
-     
-  //   });
+    var select_value;
+    var teamnames;
+    chrome.storage.sync.get("basketballList", (result) => {
+      if (!chrome.runtime.error) {
+        console.log(result);
+        teamnames = result.basketballList;
+        console.log('Teams have been selected');
+        this.setState({
+        isSelected: true,
+        }, this.handleRestart)
+      } else {
+        console.log('not found select');   
+
+      }
+    })
+    if (this.state.isSelected === true) {
+      for (var i = 0; i < this.state.selectedTeams.length; i++) {
+        indents.push(<div>{this.state.selectedTeams[i]}</div>);
+      }
+
+    } else {
+          chrome.storage.onChanged.addListener((changes, area) => {
+        if (area == "sync" && "basketballList" in changes) {
+            var teamnames = changes.basketballList.newValue;
+            // console.log('the updated teams are: ',teamnames);
+            for (var i = 0; i < this.state.selectedTeams.length; i++) {
+                indents.push(<div>{this.state.selectedTeams[i]}</div>);
+              }
+          }
+       
+      });
+
+    }
+
+
+
+
+
   
   
   return indents;
-
-  }
+}
 
 
   // render() {
@@ -211,7 +250,24 @@ class Selection extends Component {
   //     </form>
   //   );
   // }
-
+  // shouldComponentUpdate(nextState) {
+  //     if (this.state.selectedTeams.length !== nextState.selectedTeams.length) {
+  //       console.log('component update, teams',nextState.teams);
+  //       return true;
+  //     } else {
+  //       console.log('setting component does not update');
+  //       return false;
+  //     }
+  //     // if (this.state.teams.length === nextState.teams.length) {
+  //     //   for(var i = 0; i < nextState.teams.length; i++) {
+  //     //     if (this.state.teams[i] !== nextState.teams[i]) {
+  //     //       console.log('component update, teams',this.state.teams, nextState.teams);
+  //     //       return true;
+  //     //     }
+  //     //   }
+  //     // }
+      
+  // }
 
   render() {
 

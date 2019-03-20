@@ -253,8 +253,6 @@ class App extends Component {
 
   componentWillMount() {
     console.log('1component update, teams',this.state);
-    var a = ["CHA"];
-    this.handleReStart(a);
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
         var teams = result.basketballList;
@@ -274,25 +272,7 @@ class App extends Component {
     this.getTeams();
     this.getGames(this.state.team);
   }
-  // shouldComponentUpdate(nextState) {
-  //     if (this.state.teams.length !== nextState.teams.length) {
-  //       console.log('component update, teams',nextState.teams);
 
-  //       return true;
-  //     } else {
-  //       console.log('component does not update, teams',this.state.teams, nextState.teams);
-  //     return false;
-  //     }
-  //     // if (this.state.teams.length === nextState.teams.length) {
-  //     //   for(var i = 0; i < nextState.teams.length; i++) {
-  //     //     if (this.state.teams[i] !== nextState.teams[i]) {
-  //     //       console.log('component update, teams',this.state.teams, nextState.teams);
-  //     //       return true;
-  //     //     }
-  //     //   }
-  //     // }
-      
-  //   }
 
 
   render() {

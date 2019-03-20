@@ -25,29 +25,6 @@ document.getElementById("done").addEventListener("click", function() {
 });
 
 
-// for (var i = 0; i < 3; i++) {
-//     var n = i.toString();
-//     console.log('id', i, document.getElementById(i));
-//     document.getElementById(i).addEventListener("click", function() {
-//         var attribute = this.getAttribute("alt");
-//         team = attribute;
-//         console.log('team clicked', team);
-
-//     })
-// }
-
-// console.log(teamImgs);
-// var myFunction = function() {
-//     var attribute = this.getAttribute("alt");
-//     team = attribute;
-//     console.log('team clicked', team);
-// };
-
-// console.log('team length', teamImgs.length);
-// for (let item of teamImgs) {
-//       item.addEventListener('click', myFunction);
-//       console.log(item);
-// };
 
 function show(isSetting) {
     if (isSetting) {
