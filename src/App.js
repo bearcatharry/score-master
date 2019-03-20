@@ -25,10 +25,23 @@ class App extends Component {
       teams: [],
       team: ""
     };
-
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+    this.handleReStart = this.handleReStart.bind(this);
+    this.render= this.render.bind(this);
 
   }
-
+  forceUpdateHandler(){
+    this.forceUpdate();
+  };
+  handleReStart(teamnames) {
+    console.log(teamnames);
+    console.log(this.state);
+    this.setState({team: teamnames[0]});
+    console.log(teamnames);
+    console.log(this.state);
+    this.getGames(this.state.team);
+    this.forceUpdateHandler();
+}
   getTeams(){
     // for (var i = 0; i < 1; i++) {}
     // chrome.storage.sync.get("basketballList", function (result) {
@@ -47,6 +60,34 @@ class App extends Component {
     // });
     // for (i = 0; i < 1; i++) {}
     // // for (var i = 0; i < 10; i++) {}
+
+    var select_value;
+    var teamnames;
+
+    chrome.storage.sync.get('select', (result) => {
+      if (!chrome.runtime.error) {
+        console.log(result);
+        select_value = result.select;
+        console.log('Select Value currently is ' + result.select);
+        if (select_value === 1) {
+        console.log('Show selected team score ');
+        chrome.storage.sync.get("basketballList", (result) => {
+          if (!chrome.runtime.error) {
+            teamnames = result.basketballList;
+            // this.getGames(teamnames[0]);
+            console.log('found basketball list');   
+            this.handleReStart(teamnames);
+
+          } else {
+            console.log('not found basketball list');   
+          }
+        });
+    }
+      } else {
+        console.log('not found select');   
+      }
+      
+    });    
     chrome.storage.onChanged.addListener((changes, area) => {
       if (area === "sync" && "basketballList" in changes) {
         teamnames = changes.basketballList.newValue;
@@ -211,37 +252,9 @@ class App extends Component {
     }
   }
 
-  // This is not needed. Remember to delete
-  // getScore() {
-  //   let homeScore;
-  //   let url;
-  //   url = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&calendartype=blacklist&limit=100&dates=20190213";
-  //   let home;
 
-  //   fetch(url)
-  //     .then(response => response.json())
-  //     .then(response => {
-  //       // console.log(response);
-
-  //       let games = response.events;
-
-  //       let home = games[6].competitions[0].competitors[0];
-
-  //       homeScore = parseInt(home.score, 10);
-
-  //       console.log(homeScore);
-
-  //       this.setState({
-  //           score: homeScore
-  //       });
-  //     });
-  //     console.log(this.state.score);
-  // }
-
-  //
-  //  COMPONENT WILL MOUNT
-  //––––––––––––––––––––––––––––––––––––––––––––––––––
   componentWillMount() {
+    console.log('1component update, teams',this.state);
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
         var teams = result.basketballList;
@@ -257,9 +270,11 @@ class App extends Component {
 
       }
     });
+    console.log('2component update, teams',this.state);
     this.getTeams();
     this.getGames(this.state.team);
   }
+
 
 
   render() {
