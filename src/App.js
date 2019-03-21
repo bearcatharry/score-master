@@ -16,7 +16,6 @@ class App extends Component {
     const activeDate = getTodayDate().estString;
     // const score = this.getScore();
 
-
     // Get initial state.
     this.state = {
       activeDate: activeDate,
@@ -101,6 +100,8 @@ class App extends Component {
           teams: teamnames,
           team: favTeam
           })
+          this.getGames(this.state.team);
+
 
         }
       }
@@ -112,8 +113,8 @@ class App extends Component {
     
   }
   
-  
   async getGames(team){
+    console.log(this.state.team);
     // Get today's date.
     var today = new Date();
     var currentMonth = today.getMonth();
@@ -250,6 +251,8 @@ class App extends Component {
         noGames: true
       });
     }
+
+    console.log(this.state.team);
   }
 
 
@@ -261,8 +264,6 @@ class App extends Component {
         this.setState({
           team: teams[0]
         });
-        // console.log(this.state);
-
         // console.log(result);
 
       } else {

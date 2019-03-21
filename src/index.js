@@ -19,7 +19,7 @@ document.getElementById("setting").addEventListener("click", function() {
     show(isSetting);
 });
 
-document.getElementById("done").addEventListener("click", function() {
+document.getElementById("done-button").addEventListener("click", function() {
     isSetting = false;
     show(isSetting);
     ReactDOM.render(<Navbar team={team} name = {"susan"}/>, document.getElementById('teams-tab'));

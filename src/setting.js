@@ -63,6 +63,7 @@ class Selection extends Component {
   handleReStart() {
 
 }
+
   handleUpdate () {
     var listOfObjects = [];
     var a = this.state.selectedTeamNames;
@@ -260,13 +261,12 @@ showSelected() {
       <div>
         {this.showSelected()}
         {this.getAllTeams()}
-        <button type="button" id="done" class="btn btn-primary">Done</button>
+        <button type="button" id="done-button" class="btn btn-primary fixed-bottom">Done</button>
 
       </div>
       ); 
   }
 
 }
-
 
 export default Selection;
