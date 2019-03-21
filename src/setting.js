@@ -61,14 +61,7 @@ class Selection extends Component {
     this.forceUpdate();
   };
   handleReStart() {
-    // //console.log(teamnames);
-    // //console.log(this.state);
-    // this.setState({team: teamnames[0]});
-    // //console.log(teamnames);
-    // //console.log(this.state);
-    // this.getGames(this.state.team);
-    // this.forceUpdateHandler();
-    // //console.log("restart, show previous selected");
+
 }
   handleUpdate () {
     var listOfObjects = [];
@@ -76,21 +69,13 @@ class Selection extends Component {
     // //console.log(a);
 
     a.map(function(entry) {
-
-    // var singleObj = {};
-    // singleObj['name'] = entry;
     listOfObjects.push(entry);
-    // //console.log(entry)
     var i;
-    for (i = 0; i < 1; i++) {}
     chrome.storage.sync.set({"basketballList": listOfObjects}, (result) => {
-      // Notify that we saved.
-      // //console.log("Basketball list added");
+
     });
     chrome.storage.sync.set({"select": 1}, (result) => {
-        //console.log('select a team already:' ,1);
     });
-    for (i = 0; i < 1; i++) {}
     // //console.log('update list:', listOfObjects);
     
     

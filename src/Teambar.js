@@ -7,15 +7,30 @@ class Teambar extends Component {
         super();
         this.state = {
             team: "",
+            teams: [],
         };
         this.teamClicked = this.teamClicked.bind(this);
 
     }
 
     teamClicked(e) {
-
         console.log('element clicked', e.target.className);
         console.log(e.target.alt);
+        console.log(this.props.teamNames);
+
+        var listOfObjects = [];
+        var a = this.props.teamNames;
+        var temp = a[0];
+        var index = a.indexOf(e.target.alt);
+        a[0] = e.target.alt;
+        a[index] = temp;
+        console.log(a);
+        a.map(function(entry) {
+        listOfObjects.push(entry);
+        chrome.storage.sync.set({"basketballList": listOfObjects}, (result) => {
+        });
+        });
+
 
     }
 
@@ -31,7 +46,8 @@ class Teambar extends Component {
 
 Teambar.propTypes = {
   teamLogo: PropTypes.string.isRequired,
-  teamName: PropTypes.string.isRequired
+  teamName: PropTypes.string.isRequired,
+  teamNames: PropTypes.array
 };
 
 export default Teambar;

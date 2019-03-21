@@ -64,7 +64,7 @@ class Navbar extends Component {
         {
           Object.keys(this.state.teams)
             .map(key => 
-              <Teambar key={key} teamName={this.state.teams[key]} teamLogo={logos[key]} />
+              <Teambar key={key} teamName={this.state.teams[key]} teamLogo={logos[key]}  teamNames = {this.state.teams}/>
             )
         }
         
