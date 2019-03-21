@@ -22,6 +22,8 @@ document.getElementById("setting").addEventListener("click", function() {
 document.getElementById("done").addEventListener("click", function() {
     isSetting = false;
     show(isSetting);
+    ReactDOM.render(<Navbar team={team} name = {"susan"}/>, document.getElementById('teams-tab'));
+
 });
 
 
@@ -40,6 +42,18 @@ function show(isSetting) {
     }
 }
 
+
+
+// teamImgs = collectionToArray(teamImgs);
+
+function collectionToArray(collection){
+    var length = collection.length;
+    var array = [];
+    for (var i = 0;i< length+1;i++){
+        array.push(collection[i]);
+    }
+    return array;
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

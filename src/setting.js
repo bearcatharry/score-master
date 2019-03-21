@@ -25,16 +25,16 @@ class Selection extends Component {
             for (var i = 0; i < Object.keys(data).length-1; i++) {
               if (teamnames.includes(data[i].abbreviation)) {
                 selectedTeams.push(true);
-                // console.log('already existed!')
+                // //console.log('already existed!')
               } else {
                 selectedTeams.push(false);
               }
             }
           }
-          // console.log('previous teams are:',teamnames);
+          // //console.log('previous teams are:',teamnames);
 
         } else {
-                  console.log("ffffff");
+                  //console.log("ffffff");
 
         }
         // result is the stored list
@@ -55,43 +55,43 @@ class Selection extends Component {
 
 
     // this.getTeams();
-    // console.log(data[0].abbreviation);
+    // //console.log(data[0].abbreviation);
   }
   forceUpdateHandler(){
     this.forceUpdate();
   };
   handleReStart() {
-    // console.log(teamnames);
-    // console.log(this.state);
+    // //console.log(teamnames);
+    // //console.log(this.state);
     // this.setState({team: teamnames[0]});
-    // console.log(teamnames);
-    // console.log(this.state);
+    // //console.log(teamnames);
+    // //console.log(this.state);
     // this.getGames(this.state.team);
     // this.forceUpdateHandler();
-    // console.log("restart, show previous selected");
+    // //console.log("restart, show previous selected");
 }
   handleUpdate () {
     var listOfObjects = [];
     var a = this.state.selectedTeamNames;
-    // console.log(a);
+    // //console.log(a);
 
     a.map(function(entry) {
 
     // var singleObj = {};
     // singleObj['name'] = entry;
     listOfObjects.push(entry);
-    // console.log(entry)
+    // //console.log(entry)
     var i;
     for (i = 0; i < 1; i++) {}
     chrome.storage.sync.set({"basketballList": listOfObjects}, (result) => {
       // Notify that we saved.
-      // console.log("Basketball list added");
+      // //console.log("Basketball list added");
     });
     chrome.storage.sync.set({"select": 1}, (result) => {
-        console.log('select a team already:' ,1);
+        //console.log('select a team already:' ,1);
     });
     for (i = 0; i < 1; i++) {}
-    // console.log('update list:', listOfObjects);
+    // //console.log('update list:', listOfObjects);
     
     
     
@@ -103,8 +103,8 @@ class Selection extends Component {
     // const name = target.name;
     const selectedIndex = event.target.dataset.indexnumber
 
-    // console.log(value);
-    // console.log(selectedIndex);
+    // //console.log(value);
+    // //console.log(selectedIndex);
 
     let selectedTeams = this.state.selectedTeams;
     selectedTeams[selectedIndex] = value;
@@ -125,11 +125,11 @@ class Selection extends Component {
     // for (j = 0; j < 1; j++) {
     //   chrome.storage.sync.get("basketballList", function (result) {
     //     if (!chrome.runtime.error) {
-    //       // console.log("Succeed getting basketballList");
-    //       // console.log(result);
+    //       // //console.log("Succeed getting basketballList");
+    //       // //console.log(result);
 
     //     } else {
-    //               console.log("ffffff");
+    //               //console.log("ffffff");
 
     //     }
 
@@ -167,7 +167,7 @@ class Selection extends Component {
   }
 
 
- //  console.log(this.state);
+ //  //console.log(this.state);
  //  for (var i = 0; i < this.state.selectedTeamNames; i++) {
  //                indents.push(<div>{this.state.selectedTeamNames}</div>);
  //  }
@@ -187,14 +187,14 @@ showSelected() {
     var teamnames;
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
-        // console.log(result);
+        // //console.log(result);
         teamnames = result.basketballList;
-        // console.log('Teams have been selected');
+        // //console.log('Teams have been selected');
         this.setState({
         isSelected: true,
         }, this.handleRestart)
       } else {
-        // console.log('not found select');   
+        // //console.log('not found select');   
 
       }
     })
@@ -207,7 +207,7 @@ showSelected() {
           chrome.storage.onChanged.addListener((changes, area) => {
         if (area == "sync" && "basketballList" in changes) {
             var teamnames = changes.basketballList.newValue;
-            // console.log('the updated teams are: ',teamnames);
+            // //console.log('the updated teams are: ',teamnames);
             for (var i = 0; i < this.state.selectedTeams.length; i++) {
                 indents.push(<div>{this.state.selectedTeams[i]}</div>);
               }
@@ -252,16 +252,16 @@ showSelected() {
   // }
   // shouldComponentUpdate(nextState) {
   //     if (this.state.selectedTeams.length !== nextState.selectedTeams.length) {
-  //       console.log('component update, teams',nextState.teams);
+  //       //console.log('component update, teams',nextState.teams);
   //       return true;
   //     } else {
-  //       console.log('setting component does not update');
+  //       //console.log('setting component does not update');
   //       return false;
   //     }
   //     // if (this.state.teams.length === nextState.teams.length) {
   //     //   for(var i = 0; i < nextState.teams.length; i++) {
   //     //     if (this.state.teams[i] !== nextState.teams[i]) {
-  //     //       console.log('component update, teams',this.state.teams, nextState.teams);
+  //     //       //console.log('component update, teams',this.state.teams, nextState.teams);
   //     //       return true;
   //     //     }
   //     //   }

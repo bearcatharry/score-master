@@ -1,38 +1,31 @@
 /*global chrome*/
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import Teambar from './Teambar';
 
-class Navbar extends PureComponent {
-    constructor() {
-        super();
+class Navbar extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             teams: [],
+            previousteams: [],
             team: "",
+            update: ""
         };
         // Bind the context.
         this.renderTeams = this.renderTeams.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
 
-
     }
-    handleUpdate () {
-      console.log("navbar begin render");
-    }
-    handleClick (text) {
-      console.log(text);
-  }
-    forceUpdateHandler(){
-      this.forceUpdate();
-    };
-
     // url example
     // "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cavs.png"
-
+    forceUpdateHandler(){
+      this.forceUpdate();
+    }
     renderTeams() {
+      console.log('render',this.state);
       var logos = [];
-      var teams = [];
+      var newteams = [];
       // if (this.state.prevlen !== teamnames.length) {
       //   this.setState({
       //     teams: teamnames,
@@ -41,40 +34,56 @@ class Navbar extends PureComponent {
       //   });
 
       // }
+
       var url = "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/";
       chrome.storage.sync.get("basketballList", (result) => {
         if (!chrome.runtime.error) {
-          console.log("nav: found basketball list");
-          teams = result.basketballList;
+          var oldteams = this.state.teams;
+          newteams = result.basketballList;
             this.setState({
-              teams: teams
-            }, this.handleUpdate);
+              teams: newteams
+            });
+          
+          // console.log(result);
+
         } else {
             console.log("ffffff");
+
         }
       });
       // map team name with team logo url 
-      if (this.state.teams.length > 0) {
-          console.log("ffffff");
+      if (this.state.teams) {
           for (var i = 0; i < this.state.teams.length; i++) {
             var teamLogo = url + this.state.teams[i] + '.png';
-            var teamName = this.state.teams[i];
-            //onClick ={this.handleClick(teamName)}
-            logos.push(<img src={teamLogo} alt={teamName} id={i} onClick ={this.handleClick(teamName)} className="fav-team col-2" />)
+            // var teamName = this.state.teams[i];
+            logos.push(teamLogo)
           }
-      }
-      // if (logos.length === 0) {
-      //   logos.push(<img alt="" id="0" className="fav-team col-2" />)
-      // }
-      return logos;
+      } 
+    return this.state.teams.length ? (
+      <div className="teams">
+        {
+          Object.keys(this.state.teams)
+            .map(key => 
+              <Teambar key={key} teamName={this.state.teams[key]} teamLogo={logos[key]} />
+            )
+        }
+        
+      </div>
+    ) : (
+      <div className="no-teams-selected">
+        No teams selected
+      </div>
+    );
     }
 
 
     render() {
+      // console.log('render team!!!')
       return this.renderTeams();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+
       if (this.state.teams.length !== nextState.teams.length) {
         console.log('navbar:component update: teams',this.state.teams, nextState.teams);
         return true;
@@ -82,19 +91,48 @@ class Navbar extends PureComponent {
       if (this.state.teams.length === nextState.teams.length) {
         for(var i = 0; i < nextState.teams.length; i++) {
           if (this.state.teams[i] !== nextState.teams[i]) {
-            console.log('navbar:component update: teams',this.state.teams, nextState.teams);
+            console.log('navbar:component update');
             return true;
           }
         }
       }
+
+      
+      // for (var i = 0; i < 5; i++) {
+      //   chrome.storage.sync.get("basketballList", (result) => {
+      //   if (!chrome.runtime.error) {
+      //     var teams = result.basketballList;
+      //     console.log(result.basketballList);
+      //     if (teams.length !== this.state.previousteams.length) {
+      //       console.log('new team selection is', teams)
+      //       return true;
+      //     } else {
+      //       console.log('team selesction hasnot changed');
+      //     }
+
+      //   } else {
+      //       console.log("ffffff");
+      //   }
+      // });
+      // }
+      console.log(nextProps);
+      if (nextProps.name === "susan" && this.state.team === "") {
+        console.log('gogogogogogo');
+        this.setState({
+          team:"dummy"
+        })
+        return true;
+      }
       console.log('Navbar should not component update');
       return false;
-    }
+    }    
+
 
 }
 
 Navbar.propTypes = {
   team: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default Navbar;
