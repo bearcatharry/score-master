@@ -15,7 +15,7 @@ class Selection extends Component {
       chrome.storage.sync.get("basketballList", (result) => {
         if (!chrome.runtime.error) {
           var teamnames = result.basketballList;
-          if (teamnames === undefined || teamnames.length == 0) {
+          if (teamnames === undefined || teamnames.length === 0) {
             // array empty or does not exist
             for (var i = 0; i < Object.keys(data).length-1; i++) {              
                 selectedTeams.push(false);
@@ -191,7 +191,7 @@ showSelected() {
 
     } else {
           chrome.storage.onChanged.addListener((changes, area) => {
-        if (area == "sync" && "basketballList" in changes) {
+        if (area === "sync" && "basketballList" in changes) {
             var teamnames = changes.basketballList.newValue;
             // //console.log('the updated teams are: ',teamnames);
             for (var i = 0; i < this.state.selectedTeams.length; i++) {
