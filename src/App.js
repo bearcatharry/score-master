@@ -151,7 +151,8 @@ class App extends Component {
         const tmpGames = json.events;
         for (var j = 0; j < tmpGames.length; j++) {
           let gameName = tmpGames[j].shortName;
-          if (gameName.includes(team)) {
+          let namesSplit = gameName.split(" ");
+          if (namesSplit.includes(team)) {
             pastGame.push(tmpGames[j]);
             break;
           }
@@ -185,7 +186,8 @@ class App extends Component {
         const tmpGames = json.events;
         for (j = 0; j < tmpGames.length; j++) {
           let gameName = tmpGames[j].shortName;
-          if (gameName.includes(team)) {
+          let namesSplit = gameName.split(" ");
+          if (namesSplit.includes(team)) {
             futureGames.push(tmpGames[j]);
             break;
           }
@@ -232,7 +234,7 @@ class App extends Component {
       allGames = futureGames;
 
     }
-    // console.log(team, allGames);
+    console.log(team, allGames);
     if ((allGames.length) > 0) {
       // Search this team's game
       // Update state.
