@@ -264,7 +264,7 @@ export function getDateDisplay( date ) {
   var month = date.getMonth();
   var monthDisplay = monthNames[ month ];
 
-  dateDisplay = dayWeekDisplay + ' ' + monthDisplay + ' ' + day;
+  dateDisplay = dayWeekDisplay + ', ' +  monthDisplay + ' ' + day;
   return dateDisplay;
 } // getDateDisplay
 
