@@ -32,12 +32,13 @@ function show(isSetting) {
     if (isSetting) {
         document.getElementById('all-games').style.display = "none";
         document.getElementById('select').style.display = "block";
-
+        document.getElementById('teams-tab').style.display = "none";
 
     }
     else {
         document.getElementById('select').style.display = "none";
         document.getElementById('all-games').style.display = "block";
+        document.getElementById('teams-tab').style.display = "block";
 
     }
 }

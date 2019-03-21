@@ -9,7 +9,7 @@ class Navbar extends Component {
         this.state = {
             teams: [],
             previousteams: [],
-            team: "",
+            team1: "",
             update: ""
         };
         // Bind the context.
