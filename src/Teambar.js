@@ -38,7 +38,7 @@ class Teambar extends Component {
         var teamLogo = this.props.teamLogo;
         var teamName = this.props.teamName;
         return(
-            <img src={teamLogo} alt={teamName} className="fav-team col-2 btn btn-secondary"
+            <img src={teamLogo} alt={teamName} className="fav-team col-2 btn btn-outline-secondary"
             onClick={(e) => this.teamClicked(e)}/>
         )
     }
