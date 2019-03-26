@@ -7,8 +7,8 @@
         "persistent": false
     },
     "icons": { 
-        "16": "scoremaster_logo.png",
-        "48": "scoremaster_logo.png",
+        "16": "logo1.png",
+        "48": "logo1.png",
         "128": "scoremaster_logo.png" 
     },
     "permissions": ["contextMenus", "storage"],
