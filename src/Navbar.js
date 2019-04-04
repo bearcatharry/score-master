@@ -53,8 +53,8 @@ class Navbar extends React.PureComponent {
     return this.props.team.length ? (
       <div className="teams">
         {
-          Object.keys(this.props.team).map(key => 
-            key ? 
+          Object.keys(this.props.team).map((key, index) => 
+            index ? 
               <Teambar key={key} teamName={this.props.team[key]} teamLogo={logos[key]}  formatName = {"fav-team col-2 btn btn-outline-secondary"} teamNames = {this.props.team}/>
               :
               <Teambar key={key} teamName={this.props.team[key]} teamLogo={logos[key]}  formatName = {"fav-team1 col-2 btn btn-outline-secondary"} teamNames = {this.props.team}/>

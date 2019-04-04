@@ -35,6 +35,12 @@
 
 /*    background-color: gray;
 */}
+
+.fav-team1 {
+    padding: 0 !important;
+    background-color: grey;
+}
+
 .fav-team-selected {
     padding: 0 !important;
     background-color: grey;
