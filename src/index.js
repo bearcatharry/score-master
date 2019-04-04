@@ -28,11 +28,12 @@ document.getElementById("setting").addEventListener("click", function() {
     show(isSetting);
 });
 
-// chrome.storage.onChanged.addListener((changes, area) => {
-//       if (area === "sync" && "basketballList" in changes) {
-//             ReactDOM.render(<Navbar team={team} name = {"susan"}/>, document.getElementById('teams-tab'));
-//       }
-// }); 
+chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === "sync" && "basketballList" in changes) {
+        var newteams = changes.basketballList.newValue;
+            ReactDOM.render(<Navbar team={newteams} name = {"susan"}/>, document.getElementById('teams-tab'));
+      }
+}); 
 
 document.getElementById("done-button").addEventListener("click", function() {
     isSetting = false;
