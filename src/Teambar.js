@@ -40,10 +40,15 @@ class Teambar extends Component {
     }
 
     render() {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         var teamLogo = this.props.teamLogo;
         var teamName = this.props.teamName;
         var formatName = this.props.formatName;
+        console.log(formatName);
         var key = this.props.key;
+        console.log(key);
+
 
         return(
             <img src={teamLogo} alt={teamName} className={formatName}

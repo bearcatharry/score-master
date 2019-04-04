@@ -57,7 +57,7 @@ class Navbar extends React.PureComponent {
             index ? 
               <Teambar key={key} teamName={this.props.team[key]} teamLogo={logos[key]}  formatName = {"fav-team col-2 btn btn-outline-secondary"} teamNames = {this.props.team}/>
               :
-              <Teambar key={key} teamName={this.props.team[key]} teamLogo={logos[key]}  formatName = {"fav-team1 col-2 btn btn-outline-secondary"} teamNames = {this.props.team}/>
+              <Teambar key={key} teamName={this.props.team[key]} teamLogo={logos[key]}  formatName = {"fav-team-selected col-2 btn btn-outline-secondary"} teamNames = {this.props.team}/>
           )
           
         }
