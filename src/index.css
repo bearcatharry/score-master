@@ -31,8 +31,14 @@
 
 .fav-team {
     padding: 0 !important;
+    background-color: white;
+
 /*    background-color: gray;
 */}
+.fav-team-selected {
+    padding: 0 !important;
+    background-color: grey;
+}
 
 .team {
     padding: 0;
