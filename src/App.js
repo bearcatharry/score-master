@@ -158,7 +158,7 @@ class App extends Component {
             break;
           }
         }
-        if (pastGame.length === 1) {
+        if (pastGame.length === 3) {
           break;
         }   
       }
