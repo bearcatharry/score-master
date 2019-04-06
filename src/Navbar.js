@@ -19,7 +19,7 @@ class Navbar extends React.PureComponent {
     // url example
     // "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cavs.png"
     renderTeams() {
-      console.log('render',this.state);
+      // console.log('render',this.state);
       var logos = [];
       var newteams = [];
       var url = "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/";
@@ -40,7 +40,7 @@ class Navbar extends React.PureComponent {
       // });
       // map team name with team logo url 
       if (this.props.team) {
-          console.log("props is:",this.props.team);
+          // console.log("props is:",this.props.team);
           var new_team = this.props.team;
 
           for (var i = 0; i < this.props.team.length; i++) {
@@ -48,7 +48,7 @@ class Navbar extends React.PureComponent {
             // var teamName = this.state.teams[i];
             logos.push(teamLogo)
           }
-          console.log("props done");
+          // console.log("props done");
       } 
     return this.props.team.length ? (
       <div className="teams">

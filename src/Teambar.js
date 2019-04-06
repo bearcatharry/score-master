@@ -15,7 +15,7 @@ class Teambar extends Component {
 
     teamClicked(e) {
         // e.target.src = "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/" + "ATL" + '.png'
-        console.log('element clicked is', e.target.src);
+        // console.log('element clicked is', e.target.src);
         //console.log(e.target.alt);
         ////console.log(this.props.teamNames);
 
@@ -40,14 +40,14 @@ class Teambar extends Component {
     }
 
     render() {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         var teamLogo = this.props.teamLogo;
         var teamName = this.props.teamName;
         var formatName = this.props.formatName;
-        console.log(formatName);
+        // console.log(formatName);
         var key = this.props.key;
-        console.log(key);
+        // console.log(key);
 
 
         return(

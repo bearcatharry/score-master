@@ -14,7 +14,7 @@ chrome.storage.sync.get("basketballList", (result) => {
             var newteams = result.basketballList;
             ReactDOM.render(<Navbar team={newteams} name = {"susan"}/>, document.getElementById('teams-tab'));
         } else {
-            console.log("ffffff");
+            // console.log("ffffff");
         }
       });
 // ReactDOM.render(<Navbar team={team}/>, document.getElementById('teams-tab'));
@@ -58,7 +58,7 @@ function show(isSetting) {
             var newteams = result.basketballList;
             ReactDOM.render(<Navbar team={newteams} name = {"susan"}/>, document.getElementById('teams-tab'));
         } else {
-            console.log("ffffff");
+            // console.log("ffffff");
         }
       });
 

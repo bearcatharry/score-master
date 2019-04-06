@@ -33,11 +33,11 @@ class App extends Component {
     this.forceUpdate();
   };
   handleReStart(teamnames) {
-    console.log(teamnames);
-    console.log(this.state);
+    // console.log(teamnames);
+    // console.log(this.state);
     this.setState({team: teamnames[0]});
-    console.log(teamnames);
-    console.log(this.state);
+    // console.log(teamnames);
+    // console.log(this.state);
     this.getGames(this.state.team);
     this.forceUpdateHandler();
 }
@@ -114,7 +114,7 @@ class App extends Component {
   }
   
   async getGames(team){
-    console.log(this.state.team);
+    console.log('getGames', this.state.team);
     // Get today's date.
     var today = new Date();
     var currentMonth = today.getMonth();
@@ -124,7 +124,6 @@ class App extends Component {
     var pastGame = [];
     var futureGames = [];
     var allGames = [];
-
     if (team !== "") {
       // Find most recent PAST game
       for (var i = 0; i < pastDates.length; i++) {
@@ -235,7 +234,7 @@ class App extends Component {
       allGames = futureGames;
 
     }
-    console.log(team, allGames);
+    // console.log(team, allGames);
     if ((allGames.length) > 0) {
       // Search this team's game
       // Update state.
@@ -252,12 +251,12 @@ class App extends Component {
       });
     }
 
-    console.log(this.state.team);
+    // console.log(this.state.team);
   }
 
 
   componentWillMount() {
-    console.log('1component update, teams',this.state);
+    // console.log('1component update, teams',this.state);
     chrome.storage.sync.get("basketballList", (result) => {
       if (!chrome.runtime.error) {
         var teams = result.basketballList;
@@ -271,7 +270,7 @@ class App extends Component {
 
       }
     });
-    console.log('2component update, teams',this.state);
+    // console.log('2component update, teams',this.state);
     this.getTeams();
     this.getGames(this.state.team);
   }
