@@ -33,7 +33,7 @@ class Game extends Component {
       let sport = "nba";
       let timeScore;
       // let gameStatusClass;
-      console.log('GAME',game);
+      // console.log('GAME',game);
       const status = game.status.type.state; // pre, in, post.
 
       // Get start date.
@@ -106,11 +106,12 @@ class Game extends Component {
 
       return (
         <div>
-
-          <Dates activeDate={startDate} status={timeScore} />
+          <Dates activeDate={startDate}/>
+          <a href={gameLink} class="a-games" target="_blank">
+          <div className="row bg-light time">{timeScore}</div>
           <Team data={away} homeOrAway="away" winner={winner} status={status} />
           <Team data={home} homeOrAway="home" winner={winner} status={status} />
-
+          </a>
         </div>
       );
     }

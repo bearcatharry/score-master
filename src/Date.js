@@ -9,7 +9,6 @@ class Dates extends Component {
   render() {
 
     const activeDate = this.props.activeDate;
-    const timeScore = this.props.status;
 
     const dateDisplay = getDateDisplay(activeDate);
     // timeScore = getTimeDisplay(activeDate);
@@ -17,7 +16,6 @@ class Dates extends Component {
     return(
       <div className="datetime">
         <div className="row date">{dateDisplay}</div>
-        <div className="row bg-light time">{timeScore}</div>
       </div>
     );
     // return (
@@ -36,8 +34,8 @@ class Dates extends Component {
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 Dates.propTypes = {
-  activeDate: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired
+  activeDate: PropTypes.string.isRequired
+  // status: PropTypes.string.isRequired
 //   updateDate: PropTypes.func.isRequired
 }
 
