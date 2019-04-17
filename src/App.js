@@ -91,7 +91,7 @@ class App extends Component {
       if (area === "sync" && "basketballList" in changes) {
         teamnames = changes.basketballList.newValue;
         var favTeam = teamnames[0];
-        console.log('favTeam', favTeam);
+        // console.log('favTeam', favTeam);
         if (this.state.team === "") {
           favTeam = teamnames[0]
         }
@@ -159,6 +159,7 @@ class App extends Component {
           }
         }
         if (pastGame.length === 3) {
+          pastGame.reverse();
           break;
         }   
       }
