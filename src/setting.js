@@ -140,7 +140,7 @@ class Selection extends Component {
       //var img_src = url + data[i].abbreviation + '.png';
       // var img_src = '/logos/ATL.png';
 
-      console.log(img_src);
+      // console.log(img_src);
       indents.push(<form className='indent' key={i}>
       <label class="col-6">
           <img src={img_src} alt="logo" height="20px" width="20px">

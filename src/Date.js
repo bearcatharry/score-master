@@ -9,10 +9,16 @@ class Dates extends Component {
   render() {
 
     const activeDate = this.props.activeDate;
-
-    const dateDisplay = getDateDisplay(activeDate);
+    var dateDisplay;
     // timeScore = getTimeDisplay(activeDate);
-
+    const today = new Date();
+    const d1 = new Date(activeDate);
+    if (d1.getMonth() === today.getMonth() && d1.getDay() === today.getDay()) {
+      dateDisplay = "Today";
+    } 
+    else {
+      dateDisplay = getDateDisplay(activeDate);
+    }
     return(
       <div className="datetime">
         <div className="row date">{dateDisplay}</div>
