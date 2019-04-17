@@ -133,10 +133,18 @@ class Selection extends Component {
 
   getAllTeams(){
     var indents = [];
+    var url = "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/";
 
   for (var i = 0; i < Object.keys(data).length - 1; i++) {
+      var img_src = '/logos/' + data[i].abbreviation + '.png';
+      //var img_src = url + data[i].abbreviation + '.png';
+      // var img_src = '/logos/ATL.png';
+
+      console.log(img_src);
       indents.push(<form className='indent' key={i}>
-      <label>
+      <label class="col-6">
+          <img src={img_src} alt="logo" height="20px" width="20px">
+          </img>
           {data[i].abbreviation}
           <input
             // name={`make-${index}`}
