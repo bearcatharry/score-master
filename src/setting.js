@@ -5,10 +5,12 @@
 import React, { Component } from 'react';
 import * as data from './nbaTeams.json';
 import Navbar from './Navbar';
+import PropTypes from "prop-types";
 
-class Selection extends Component {
-  constructor() {
-    super();
+
+class Selection extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
     let selectedTeams = [];
     // check the storage before restarting the chrome extension
@@ -140,7 +142,7 @@ class Selection extends Component {
       //var img_src = url + data[i].abbreviation + '.png';
       // var img_src = '/logos/ATL.png';
 
-      // console.log(img_src);
+      console.log(img_src);
       indents.push(<form className='indent' key={i}>
       <label class="col-6">
           <img src={img_src} alt="logo" height="20px" width="20px">
@@ -276,5 +278,8 @@ showSelected() {
   }
 
 }
+Selection.propTypes = {
+  name: PropTypes.string.isRequired
+};
 
 export default Selection;

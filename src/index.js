@@ -47,6 +47,7 @@ function show(isSetting) {
         document.getElementById('all-games').style.display = "none";
         document.getElementById('select').style.display = "block";
         document.getElementById('teams-tab').style.display = "none";
+        ReactDOM.render(<Selection name = {"susan"}/>, document.getElementById('select'));
 
     }
     else {
